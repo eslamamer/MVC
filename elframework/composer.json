@@ -1,0 +1,21 @@
+{
+    "name": "php/elframework",
+    "description": "elframework local package",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "elframework\\": "framework/"
+        }
+    },
+    "authors": [
+        {
+            "name": "eslam"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.3"
+    },
+    "version": "1.0"
+}

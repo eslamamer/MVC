@@ -1,0 +1,28 @@
+{
+    "name": "mvc/elframework",
+    "description": "first mvc framework",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "elframework\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "eslam"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.3",
+        "php/elframework": "1.0"
+    },
+    "version": "1.0.0",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "elframework"
+        }
+    ]
+}

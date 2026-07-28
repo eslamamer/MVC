@@ -1,0 +1,39 @@
+{
+    "packages": [
+        {
+            "name": "php/elframework",
+            "version": "1.0",
+            "version_normalized": "1.0.0.0",
+            "dist": {
+                "type": "path",
+                "url": "elframework",
+                "reference": "f80f46282417ac22dfe5bd8008e65fe8b1548ce6"
+            },
+            "require": {
+                "php": ">=8.3"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "elframework\\": "framework/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "eslam"
+                }
+            ],
+            "description": "elframework local package",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "../php/elframework"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
