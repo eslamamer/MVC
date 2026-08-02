@@ -25,7 +25,7 @@ class ComposerStaticInit148a9bdaf6fa14707fa067a25c7379f8
         'elframework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
-            1 => __DIR__ . '/..' . '/php/elframework/elframework',
+            1 => __DIR__ . '/..' . '/php/elframework',
         ),
     );
 

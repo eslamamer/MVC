@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'illuminates\\' => array($vendorDir . '/php/elframework/illuminates'),
-    'elframework\\' => array($baseDir . '/app', $vendorDir . '/php/elframework/elframework'),
+    'elframework\\' => array($baseDir . '/app', $vendorDir . '/php/elframework'),
 );
