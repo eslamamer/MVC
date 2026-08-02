@@ -8,4 +8,4 @@
     use illuminates\Router\Router;
     $router = new Router();
     $router->add("GET", "/home", "HomeController", "index");
-    $router->routes();
+    var_dump($router->routes());
