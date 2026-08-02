@@ -6,6 +6,9 @@
     //include composer autoload
     require_once __DIR__.'/../vendor/autoload.php';
     use illuminates\Router\Router;
+    use App\Http\Controllers\HomeController;
     $router = new Router();
-    $router->add("GET", "/home", "HomeController", "index");
-    var_dump($router->routes());
+    $router->add("GET", "/"    , HomeController::class, 'index');
+    $router->add("GET", "about", HomeController::class, 'about');
+
+   echo $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
