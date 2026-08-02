@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b54d8b5acaf13fd74771df1f481a99c",
+    "content-hash": "55562ef40f26e5648b9a69a7da9276e5",
     "packages": [
         {
             "name": "php/elframework",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "elframework",
-                "reference": "f80f46282417ac22dfe5bd8008e65fe8b1548ce6"
+                "reference": "85de5cad0d2779972307373c7455d66a3baf3e24"
             },
             "require": {
                 "php": ">=8.3"
@@ -20,7 +20,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "elframework\\": "framework/"
+                    "elframework\\": "elframework/",
+                    "illuminates\\": "illuminates/"
                 }
             },
             "license": [

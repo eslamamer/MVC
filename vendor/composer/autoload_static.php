@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit148a9bdaf6fa14707fa067a25c7379f8
 {
     public static $prefixLengthsPsr4 = array (
+        'i' => 
+        array (
+            'illuminates\\' => 12,
+        ),
         'e' => 
         array (
             'elframework\\' => 12,
@@ -14,10 +18,14 @@ class ComposerStaticInit148a9bdaf6fa14707fa067a25c7379f8
     );
 
     public static $prefixDirsPsr4 = array (
+        'illuminates\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php/elframework/illuminates',
+        ),
         'elframework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
-            1 => __DIR__ . '/..' . '/php/elframework/framework',
+            1 => __DIR__ . '/..' . '/php/elframework/elframework',
         ),
     );
 

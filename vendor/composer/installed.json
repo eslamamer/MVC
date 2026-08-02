@@ -7,7 +7,7 @@
             "dist": {
                 "type": "path",
                 "url": "elframework",
-                "reference": "f80f46282417ac22dfe5bd8008e65fe8b1548ce6"
+                "reference": "85de5cad0d2779972307373c7455d66a3baf3e24"
             },
             "require": {
                 "php": ">=8.3"
@@ -16,7 +16,8 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "elframework\\": "framework/"
+                    "elframework\\": "elframework/",
+                    "illuminates\\": "illuminates/"
                 }
             },
             "license": [
