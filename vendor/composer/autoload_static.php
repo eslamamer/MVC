@@ -15,6 +15,10 @@ class ComposerStaticInit148a9bdaf6fa14707fa067a25c7379f8
         array (
             'elframework\\' => 12,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -24,8 +28,11 @@ class ComposerStaticInit148a9bdaf6fa14707fa067a25c7379f8
         ),
         'elframework\\' => 
         array (
+            0 => __DIR__ . '/..' . '/php/elframework',
+        ),
+        'App\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/app',
-            1 => __DIR__ . '/..' . '/php/elframework',
         ),
     );
 
