@@ -7,11 +7,16 @@ use App\Http\Controllers\HomeController;
 
 class Start
 {
+    protected object $router;
     public function run()
     {
-        $router = new Router();
-        $router->add("GET", "/", HomeController::class, 'index');
-        $router->add("GET", "about", HomeController::class, 'about');
-        $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+        $this->router = new Router();
+        $this->router->add("GET", "/", HomeController::class, 'index');
+        $this->router->add("GET", "about", HomeController::class, 'about');
+    }
+
+    public function __destruct()
+    {
+        $this->router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
 }
