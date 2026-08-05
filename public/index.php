@@ -5,7 +5,5 @@
     error_reporting(E_ALL);
     //include composer autoload
     require_once __DIR__.'/../vendor/autoload.php';
-    // use illuminates\Start;
-    // $start = new Start();
-    // $start->run();
-    (new illuminates\Start)->run();
+
+   (new illuminates\Start)->run();
