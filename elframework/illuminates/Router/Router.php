@@ -10,7 +10,16 @@ class Router
                     "PATCH"  => [],
                     "DELETE" => []
                 ];
-    public static function add(string $method , string $route , string $controller , mixed $action , $middleware = []){
+    /**
+     * @param string $method
+     * @param string $route
+     * @param string $controller
+     * @param mixed $action
+     * @param array $middleware
+     * 
+     * @return void
+     */
+    public static function add(string $method , string $route , string $controller , mixed $action , $middleware = []):void{
         $route = "/".ltrim($route, '/');
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
@@ -25,7 +34,7 @@ class Router
      * 
      * @return mixed
      */
-    public function dispatch(string $uri,mixed $method){
+    public static function dispatch(string $uri,mixed $method){
         $uri  = "/".ltrim($uri, '/');
         if(isset(self::$routes[$method][$uri])){
             $data = self::$routes[$method][$uri];
