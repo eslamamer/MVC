@@ -7,7 +7,7 @@
             "dist": {
                 "type": "path",
                 "url": "elframework",
-                "reference": "e38e028b1edeb6889689ced8841f9291cfd22424"
+                "reference": "c25a5405d13a0627482061b6cb806a017d207bf9"
             },
             "require": {
                 "php": ">=8.3"
@@ -18,7 +18,10 @@
                 "psr-4": {
                     "elframework\\": "/",
                     "illuminates\\": "illuminates/"
-                }
+                },
+                "files": [
+                    "helpers/base.php"
+                ]
             },
             "license": [
                 "MIT"

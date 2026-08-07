@@ -9,7 +9,8 @@ class Start
     
     public function run()
     {
-        include getcwd()."/../Routes/web.php";
+        include base_path("Routes/web.php");
+        config("router.path");
         Rout::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
 

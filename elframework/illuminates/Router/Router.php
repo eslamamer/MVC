@@ -20,7 +20,7 @@ class Router
      * @return void
      */
     public static function add(string $method , string $route , string $controller , mixed $action , $middleware = []):void{
-        $route = "/".ltrim($route, '/');
+        $route = "/elframe/".ltrim($route, '/');
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
     

@@ -22,7 +22,7 @@
         'php/elframework' => array(
             'pretty_version' => '1.0',
             'version' => '1.0.0.0',
-            'reference' => 'e38e028b1edeb6889689ced8841f9291cfd22424',
+            'reference' => 'c25a5405d13a0627482061b6cb806a017d207bf9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php/elframework',
             'aliases' => array(),
