@@ -1,4 +1,4 @@
 <?php
     return[
-        "path" => __DIR__."/../Router/web",
+        "path" => base_path("Routes/web").".php",
     ];

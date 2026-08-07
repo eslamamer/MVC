@@ -9,8 +9,7 @@ class Start
     
     public function run()
     {
-        include base_path("Routes/web.php");
-        config("router.path");
+        include route_path();
         Rout::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
 
