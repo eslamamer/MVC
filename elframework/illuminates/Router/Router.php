@@ -20,7 +20,7 @@ class Router
      * @return void
      */
     public static function add(string $method , string $route , string $controller , mixed $action , $middleware = []):void{
-        $route = "/elframe/".ltrim($route, '/');
+        $route = "/".ltrim($route, '/');
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
     
@@ -35,7 +35,7 @@ class Router
      * @return mixed
      */
     public static function dispatch(string $uri,mixed $method){
-        $uri  = "/".ltrim($uri, '/');
+        $uri  = "/".rtrim($uri, "/elframe/");
         if(isset(self::$routes[$method][$uri])){
             $data = self::$routes[$method][$uri];
             if(is_object($data['controller'])){

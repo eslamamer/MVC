@@ -1,4 +1,4 @@
 <?php
     return[
-        "path" => base_path("Routes/web").".php",
+        "path"   => base_path("Routes"),
     ];
