@@ -29,10 +29,16 @@
                         throw new \Exception($name." not exist");
                     }
                 }  
-             }else{
+            }else{
                 return "";
-             }
+            }
          }
+    }
+
+    if(!function_exists('public_path')){
+        function public_path(string $path = ""){
+            return !empty($path) ? getcwd()."/".$path : getcwd();
+        }
     }
 
 

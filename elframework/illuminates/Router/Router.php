@@ -10,6 +10,16 @@ class Router
                     "PATCH"  => [],
                     "DELETE" => []
                 ];
+
+    private static string $public;
+
+    /**
+     * @return string
+     */
+    public static function public_path($bind = null):string{
+        static::$public = $bind ?? "/public/";
+        return static::$public;
+    }
     /**
      * @param string $method
      * @param string $route
@@ -35,7 +45,7 @@ class Router
      * @return mixed
      */
     public static function dispatch(string $uri,mixed $method){
-        $uri  = "/".rtrim($uri, "/elframe/");
+        $uri  = "/".rtrim($uri, "/".static::public_path('elframe')."/");
         if(isset(self::$routes[$method][$uri])){
             $data = self::$routes[$method][$uri];
             if(is_object($data['controller'])){
