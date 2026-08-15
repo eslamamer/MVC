@@ -12,6 +12,4 @@ class Start
         include route_path('/web.php');
         Rout::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
-
-    public function __destruct(){}
 }

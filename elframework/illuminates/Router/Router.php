@@ -34,7 +34,7 @@ class Router
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
     
-    public function routes(){
+    public static function routes(){
         return self::$routes;
     }
 
@@ -45,17 +45,17 @@ class Router
      * @return mixed
      */
     public static function dispatch(string $uri,mixed $method){
-        $uri  = "/".rtrim($uri, "/".static::public_path('elframe')."/");
-        if(isset(self::$routes[$method][$uri])){
-            $data = self::$routes[$method][$uri];
-            if(is_object($data['controller'])){
-                return $data['action']();
-            }else{
-                call_user_func_array([new $data['controller'], $data['action']], []);
+        $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
+        foreach(self::routes()[$method] as $key => $value){
+            $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $key);
+            $pattern    = "#^$pattern$#";
+            if(preg_match($pattern, $uri, $matches)){
+                $controller = $value['controller'];
+                $action     = $value['action'];
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                return call_user_func_array([new $controller, $action], $params);
             }
-        }else{
-            throw new \Exception("$uri route not exist");
         }
-
+        throw new \Exception($uri." not Existing Rout");
     }
 }
