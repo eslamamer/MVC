@@ -10,8 +10,8 @@
          * 
          * @return void
          */
-        public static function get( string $route , string $controller , string $action , array $middleware =[]):void{
-            parent::add("GET", $route ,  $controller , $action , $middleware);
+        public static function get( string $route , mixed $controller , string $action = null , array $middleware =[]):void{
+            parent::add("GET", $route ,  $controller , $action  , $middleware);
         }
         /**
          * @param string $route

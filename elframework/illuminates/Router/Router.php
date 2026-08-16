@@ -29,7 +29,7 @@ class Router
      * 
      * @return void
      */
-    public static function add(string $method , string $route , string $controller , mixed $action , $middleware = []):void{
+    public static function add(string $method , string $route , mixed $controller , mixed $action = null , $middleware = []):void{
         $route = "/".ltrim($route, '/');
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
@@ -49,12 +49,18 @@ class Router
         foreach(self::routes()[$method] as $key => $value){
             $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $key);
             $pattern    = "#^$pattern$#";
+            $controller = $value['controller'];
+            $action     = $value['action'];
             if(preg_match($pattern, $uri, $matches)){
-                $controller = $value['controller'];
-                $action     = $value['action'];
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                return call_user_func_array([new $controller, $action], $params);
+                if(is_object($controller)){
+                    echo $controller(...$params);
+                    return;
+                }else{
+                    return call_user_func_array([new $controller, $action], $params);
+                }
             }
+          
         }
         throw new \Exception($uri." not Existing Rout");
     }

@@ -9,7 +9,7 @@
             echo 'about action';
         }
 
-        public function article($id){
+        public function article(string $id){
             echo 'article action '.$id;
         }
     }
