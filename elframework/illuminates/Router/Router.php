@@ -54,8 +54,7 @@ class Router
             if(preg_match($pattern, $uri, $matches)){
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 if(is_object($controller)){
-                    echo $controller(...$params);
-                    return;
+                    return $controller(...$params);
                 }else{
                     return call_user_func_array([new $controller, $action], $params);
                 }

@@ -2,10 +2,10 @@
 if (!function_exists('base_path')) {
     function base_path($file = null)
     {
-        return getcwd() . "/../$file";
+        return ROOT_PATH."/../$file";
     }
 }
-
+var_dump(base_path());
 if (!function_exists('route_path')) {
     function route_path(string $file = "")
     {
@@ -29,7 +29,7 @@ if (!function_exists('config')) {
                     $cache[$name] = require_once $file;
                     return isset($cache[$name][$path]) ? $cache[$name][$path] : $str_path;
                 } else {
-                    throw new \Exception($name . " not exist");
+                    throw new \Exception($name." not exist");
                 }
             }
         } else {
@@ -42,5 +42,26 @@ if (!function_exists('public_path')) {
     function public_path(string $path = "")
     {
         return !empty($path) ? getcwd() . "/" . $path : getcwd();
+    }
+}
+
+if (!function_exists('bcrypt')){
+    function bcrypt(string $password){
+        return \illuminates\hashes\Hash::make($password);
+    }
+}
+if (!function_exists('check_hash')){
+    function check_hash(string $password, string $hashed){
+        return \illuminates\hashes\Hash::check($password, $hashed);
+    }
+}
+if (!function_exists('encript')){
+    function encript(string $val){
+        return \illuminates\hashes\Hash::encript($val);
+    }
+}
+if (!function_exists('decript')){
+    function decript(string $val){
+        return \illuminates\hashes\Hash::decrypt($val);
     }
 }
