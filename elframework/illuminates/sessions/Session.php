@@ -3,7 +3,15 @@
 
 use illuminates\hashes\Hash;
 
-    class session{
+    class Session{
+
+        public function  __construct(){
+            session_save_path(config('session.path'));
+            ini_set('session.gc_propability', 1);
+            session_start([
+                "cookie_lifetime" => config('session.expiration_timeout')
+            ]);
+        }
         /**
          * @param string $key
          * @param mixed|null $val

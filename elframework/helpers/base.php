@@ -41,7 +41,7 @@ if (!function_exists('config')) {
 if (!function_exists('public_path')) {
     function public_path(string $path = "")
     {
-        return !empty($path) ? getcwd() . "/" . $path : getcwd();
+        return !empty($path) ? ROOT_PATH . "/" . $path : ROOT_PATH;
     }
 }
 
