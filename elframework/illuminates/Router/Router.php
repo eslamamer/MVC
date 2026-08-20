@@ -51,15 +51,23 @@ class Router
             $pattern    = "#^$pattern$#";
             $controller = $value['controller'];
             $action     = $value['action'];
+            $middlewares = $value['middleware'];
             if(preg_match($pattern, $uri, $matches)){
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 if(is_object($controller)){
                     return $controller(...$params);
                 }else{
-                    return call_user_func_array([new $controller, $action], $params);
+                     $next = function ($request) use ($controller, $action, $params){
+                            return call_user_func_array([new $controller, $action], $params);
+                        };
+                     foreach(array_reverse($middlewares) as $middleware){
+                        $next = function ($request) use($middleware, $next){
+                            return (new $middleware)->handle($request, $next);
+                        };
+                     }
+                     return $next($uri);
                 }
             }
-          
         }
         throw new \Exception($uri." not Existing Rout");
     }
