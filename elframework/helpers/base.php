@@ -5,7 +5,7 @@ if (!function_exists('base_path')) {
         return ROOT_PATH."/../$file";
     }
 }
-var_dump(base_path());
+
 if (!function_exists('route_path')) {
     function route_path(string $file = "")
     {
@@ -14,8 +14,7 @@ if (!function_exists('route_path')) {
 }
 
 if (!function_exists('config')) {
-    function config(string $str_path): string
-    {
+    function config(string $str_path): string {
         static $cache = [];
         if (isset($str_path)) {
             $sep  = explode('.', $str_path);

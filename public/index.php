@@ -5,5 +5,4 @@
     error_reporting(E_ALL);
     define('ROOT_PATH', dirname(__FILE__));
     require_once __DIR__.'/../vendor/autoload.php';
-
    (new illuminates\Start)->run();

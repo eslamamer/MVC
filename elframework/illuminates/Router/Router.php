@@ -45,8 +45,7 @@ class Router
      * @return mixed
      */
     public static function dispatch(string $uri,mixed $method){
-        $uri = str_starts_with($uri, "/elframe") ? substr($uri, strlen("/elframe")) : $uri;
-        var_dump($uri);
+        $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
         foreach(self::routes()[$method] as $key => $value){
             $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $key);
             $pattern    = "#^$pattern$#";

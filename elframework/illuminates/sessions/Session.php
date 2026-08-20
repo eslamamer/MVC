@@ -25,10 +25,21 @@ use illuminates\hashes\Hash;
             return isset($_SESSION[$key]) ? Hash::decrypt($_SESSION[$key]) : '';
         }
 
+        /**
+         * @param string $key
+         * 
+         * @return mixed
+         */
         public static function get(string $key): mixed{
             return isset($_SESSION[$key]) ? Hash::decrypt($_SESSION[$key]) : $key;
         }
 
+        /**
+         * @param string $key
+         * @param mixed|null $val
+         * 
+         * @return mixed
+         */
         public static function has(string $key, mixed $val = null): mixed{
             if(!is_null($val)){
                 $_SESSION[$key] = Hash::encript($val);
@@ -38,11 +49,19 @@ use illuminates\hashes\Hash;
             return $session;
         }
 
+       /**
+        * @param string $key
+        * 
+        * @return void
+        */
        public static function forget(string $key): void{
            if (isset($_SESSION[$key])){
                 unset($_SESSION[$key]);
            } 
         }
+        /**
+         * @return void
+         */
         public static function forget_all():void{
             session_destroy();
         }
