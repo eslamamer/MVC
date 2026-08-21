@@ -8,7 +8,7 @@ if (!function_exists('base_path')) {
 
 if(!function_exists('uri')){
     function uri(string $uri){
-        return $_SERVER['REQUEST_SCHEME']."//:".$_SERVER['HTTP_HOST'].ltrim($uri, '/');
+        return $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/elframe".ltrim($uri, '/');
     }   
 }
 

@@ -55,20 +55,30 @@ class Router
             if(preg_match($pattern, $uri, $matches)){
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 if(is_object($controller)){
-                    return $controller(...$params);
+                    $next = function ($request) use($controller, $params){
+                         return $controller(...$params);
+                    }; 
+                    self::handleMiddleware($middlewares, $next);
                 }else{
                      $next = function ($request) use ($controller, $action, $params){
                             return call_user_func_array([new $controller, $action], $params);
                         };
-                     foreach(array_reverse($middlewares) as $middleware){
-                        $next = function ($request) use($middleware, $next){
-                            return (new $middleware)->handle($request, $next);
-                        };
-                     }
-                     return $next($uri);
+                    self::handleMiddleware($middlewares, $next);
                 }
+                return $next($uri);
             }
         }
         throw new \Exception($uri." not Existing Rout");
     }
-}
+
+    public static function handleMiddleware(array $middlewares, object $next){
+        if(is_array($middlewares) && !empty($middlewares)){
+            foreach(array_reverse($middlewares) as $middleware){
+                    $next = function ($request) use($middleware, $next){
+                        return (new $middleware)->handle($request, $next);
+                    };
+                }
+            }
+            return $next;
+        } 
+    }
