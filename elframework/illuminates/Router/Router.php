@@ -1,22 +1,26 @@
 <?php
+
 namespace illuminates\Router;
+use \illuminates\middleware\Middleware;
+
 
 class Router
 {
     protected static $routes = [
-                    "GET"    => [],
-                    "POST"   => [],
-                    "PUT"    => [],
-                    "PATCH"  => [],
-                    "DELETE" => []
-                ];
+        "GET"    => [],
+        "POST"   => [],
+        "PUT"    => [],
+        "PATCH"  => [],
+        "DELETE" => []
+    ];
 
     private static string $public;
 
     /**
      * @return string
      */
-    public static function public_path($bind = null):string{
+    public static function public_path($bind = null): string
+    {
         static::$public = $bind ?? "/public/";
         return static::$public;
     }
@@ -29,12 +33,14 @@ class Router
      * 
      * @return void
      */
-    public static function add(string $method , string $route , mixed $controller , mixed $action = null , $middleware = []):void{
-        $route = "/".ltrim($route, '/');
+    public static function add(string $method, string $route, mixed $controller, mixed $action = null, $middleware = []): void
+    {
+        $route = "/" . ltrim($route, '/');
         self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
     }
-    
-    public static function routes(){
+
+    public static function routes()
+    {
         return self::$routes;
     }
 
@@ -44,41 +50,30 @@ class Router
      * 
      * @return mixed
      */
-    public static function dispatch(string $uri,mixed $method){
+    public static function dispatch(string $uri, mixed $method)
+    {
         $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
-        foreach(self::routes()[$method] as $key => $value){
+        foreach (self::routes()[$method] as $key => $value) {
             $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $key);
             $pattern    = "#^$pattern$#";
             $controller = $value['controller'];
             $action     = $value['action'];
             $middlewares = $value['middleware'];
-            if(preg_match($pattern, $uri, $matches)){
+            if (preg_match($pattern, $uri, $matches)) {
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                if(is_object($controller)){
-                    $next = function ($request) use($controller, $params){
-                         return $controller(...$params);
-                    }; 
-                    self::handleMiddleware($middlewares, $next);
-                }else{
-                     $next = function ($request) use ($controller, $action, $params){
-                            return call_user_func_array([new $controller, $action], $params);
-                        };
-                    self::handleMiddleware($middlewares, $next);
+                if (is_object($controller)) {
+                    $next = function ($request) use ($controller, $params) {
+                        return $controller(...$params);
+                    };
+                } else {
+                    $next = function ($request) use ($controller, $action, $params) {
+                        return call_user_func_array([new $controller, $action], $params);
+                    };
                 }
+                $next = Middleware::handleMiddleware($middlewares, $next);
                 return $next($uri);
             }
         }
-        throw new \Exception($uri." not Existing Rout");
+        throw new \Exception($uri . " not Existing Rout");
     }
-
-    public static function handleMiddleware(array $middlewares, object $next){
-        if(is_array($middlewares) && !empty($middlewares)){
-            foreach(array_reverse($middlewares) as $middleware){
-                    $next = function ($request) use($middleware, $next){
-                        return (new $middleware)->handle($request, $next);
-                    };
-                }
-            }
-            return $next;
-        } 
-    }
+}

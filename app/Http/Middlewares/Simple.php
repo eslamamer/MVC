@@ -1,12 +1,12 @@
 <?php
-    namespace app\Http\Middlewares;
-    use \contracts\Middleware;
+    namespace App\Http\Middlewares;
+    use \contracts\middleware\Contract;
+    class Simple implements Contract{
 
-    class Simple implements Middleware{
-        public function handle(string $request, mixed $next)
+        public function handle(string $request, mixed $next, array $role)
         {
-            if(2==2){
-                header('location: '.uri('/'));
+           if(trim($role[0]) == "admin"){
+                header('location: '.uri('about'));
                 exit;
             }
             return $next($request); 
