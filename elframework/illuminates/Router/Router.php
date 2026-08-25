@@ -33,9 +33,8 @@ class Router
     public static function add(string $method, string $route, mixed $controller, mixed $action = null, $middleware = []): void
     {
         $route = self::applyGroupPrefix($route);
+        $route = "/" . ltrim($route, '/');
         $middleware = self::applyMiddleware($middleware);
-        // $route = "/" . ltrim($route, '/');
-        // self::$routes[$method][$route] = compact('controller', 'action', 'middleware');
         self::$routes[] = [
             "method"     => $method,
             "uri"        => $route,
@@ -80,11 +79,7 @@ class Router
      * 
      * @return mixed
      */
-    public static function dispatch(string $uri, string $method, string $type)
-    {
-        // echo "<pre>";
-        //  var_dump(static::routes());
-    
+    public static function dispatch(string $uri, string $method, string $type){
         $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
         foreach (self::routes() as $value) {
             if($value['method'] == $method){
@@ -93,25 +88,22 @@ class Router
                 $controller = $value['controller'];
                 $action     = $value['action'];
                 $middlewares = $value['middleware'];
-                if (preg_match($pattern, $uri, $matches)) {
-                    var_dump($matches);
-                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                if (preg_match($pattern, $uri, $matches)) { 
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                     if (is_object($controller)) {
-                        $next = function ($request) use ($controller, $params) {
+                        $next = function ($_request) use ($controller, $params) {
                             return $controller(...$params);
                         };
                     } else {
-                        $next = function ($request) use ($controller, $action, $params) {
+                        $next = function ($_request) use ($controller, $action, $params) {
                             return call_user_func_array([new $controller, $action], $params);
                         };
                     }
                     $next = Middleware::handleMiddleware($middlewares, $next, $type);
                     return $next($uri);
                 }
-            }else{
-                throw new \Exception($uri . " not Existing Rout");
             } 
         }
-
+        throw new \Exception($uri . " not Existing Rout");
     }
 }
