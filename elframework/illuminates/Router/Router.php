@@ -94,6 +94,7 @@ class Router
                 $action     = $value['action'];
                 $middlewares = $value['middleware'];
                 if (preg_match($pattern, $uri, $matches)) {
+                    var_dump($matches);
                     $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                     if (is_object($controller)) {
                         $next = function ($request) use ($controller, $params) {
@@ -107,8 +108,10 @@ class Router
                     $next = Middleware::handleMiddleware($middlewares, $next, $type);
                     return $next($uri);
                 }
-            }  
+            }else{
+                throw new \Exception($uri . " not Existing Rout");
+            } 
         }
-           throw new \Exception($uri . " not Existing Rout");
+
     }
 }

@@ -15,7 +15,7 @@ class Start
             $reqType = "api";
             $this->apiٌRout();
         }else{
-            $reqType = "web";
+           $reqType = "web";
             $this->webrout();
         }
         echo $this->router::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $reqType);
