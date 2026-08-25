@@ -82,8 +82,8 @@ class Router
      */
     public static function dispatch(string $uri, string $method, string $type)
     {
-        echo "<pre>";
-         var_dump(static::routes());
+        // echo "<pre>";
+        //  var_dump(static::routes());
     
         $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
         foreach (self::routes() as $value) {
@@ -108,7 +108,7 @@ class Router
                     return $next($uri);
                 }
             }  
-            throw new \Exception($uri . " not Existing Rout");
         }
+           throw new \Exception($uri . " not Existing Rout");
     }
 }
