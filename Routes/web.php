@@ -4,7 +4,7 @@ use \App\Http\Middlewares\Simple;
 use \illuminates\Router\Rout;
 use \App\Http\Controllers\HomeController;
 
-Rout::get( "/", HomeController::class, 'index', ["Simple,admin"] );
+Rout::get( "/", HomeController::class, 'index', ["Simple, admin"] );
 // Rout::get( "/", fn()=>'index of closure', middleware:[Simple::class]);
 // Rout::get("about", HomeController::class, 'about', [Simple::class]);
 Rout::get("about", function(){return 'about from closure';}, middleware:["Simple"]);

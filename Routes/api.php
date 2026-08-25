@@ -1,10 +1,14 @@
 <?php
-   var_dump('api');
    use \illuminates\Router\Rout;
-    Rout::get("/api", function(){
-        return "welcome to api";
-    });
+   use \App\Http\Middlewares\Api;
+    use App\Http\Middlewares\Simple;
 
-    Rout::get("api/users", function(){
-        return "welcome to api users";
-    });
+   Rout::group(['prefix' => '/api', 'middleware' => [Simple::class] ], function(){
+        Rout::get("/", function(){
+            return "welcome to api";
+        }, middleware: [Api::class]);
+
+        Rout::get("/users", function(){
+            return "welcome to api users";
+        });
+   });
