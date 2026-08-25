@@ -12,8 +12,10 @@ class Start
         $this->router = new Rout;
         $reqType = Segment::get(0);
         if($reqType == "api"){
+            $reqType = "api";
             $this->apiٌRout();
         }else{
+            $reqType = "web";
             $this->webrout();
         }
         echo $this->router::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $reqType);

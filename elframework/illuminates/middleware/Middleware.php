@@ -26,9 +26,9 @@ class Middleware
 
     public static function getFromCore(string $key, string $type = 'web'){
         if($type == 'web' && isset(Core::$middlewareWebRout[$key])){
-            return Core::$middlewareApiRout[$key];
-        }elseif($type == 'api' && isset(Core::$middlewareApiRout[$key])){
             return Core::$middlewareWebRout[$key];
+        }elseif($type == 'api' && isset(Core::$middlewareApiRout[$key])){
+            return Core::$middlewareApiRout[$key];
         }else{
             throw new \Exception("there is no class named $key");
         }

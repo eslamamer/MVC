@@ -71,6 +71,7 @@ class Router
             $apiMiddleware = self::$groupattr['middleware']??[];
             return array_merge($apiMiddleware, $middleware);
         }
+        return $middleware;
     } 
 
     /**
