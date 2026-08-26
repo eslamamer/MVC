@@ -11,16 +11,6 @@ class Router
     protected static $routes    = [];
     protected static $groupattr = [];
 
-    private static string $public;
-
-    /**
-     * @return string
-     */
-    public static function public_path($bind = null): string
-    {
-        static::$public = $bind ?? "/public/";
-        return static::$public;
-    }
     /**
      * @param string $method
      * @param string $route
@@ -33,11 +23,10 @@ class Router
     public static function add(string $method, string $route, mixed $controller, mixed $action = null, $middleware = []): void
     {
         $route = self::applyGroupPrefix($route);
-        $route = "/" . ltrim($route, '/');
         $middleware = self::applyMiddleware($middleware);
         self::$routes[] = [
             "method"     => $method,
-            "uri"        => $route,
+            "uri"        => "/" . ltrim($route, '/'),
             "controller" => $controller,
             "action"     => $action,
             "middleware" => $middleware
@@ -58,7 +47,7 @@ class Router
 
     protected static function applyGroupPrefix(string $route){
         if(isset(self::$groupattr['prefix'])){
-            $full_route = rtrim(self::$groupattr['prefix'], '/').'/'.ltrim($route, '/');
+            $full_route = rtrim(self::$groupattr['prefix'].'/'.ltrim($route, '/'), '/') ?:'/';
             return $full_route;
         }else{
             return $route;
@@ -79,9 +68,11 @@ class Router
      * 
      * @return mixed
      */
-    public static function dispatch(string $uri, string $method, string $type){
-        $uri = str_starts_with($uri, static::public_path("/elframe")) ? substr($uri, strlen(static::public_path("/elframe"))) : $uri;
+    public static function dispatch(string $uri, string $method){
+        $uri = str_starts_with($uri, ROOT) ? substr($uri, strlen(ROOT)) : $uri; 
+        $uri = '/'.ltrim($uri, '/');
         foreach (self::routes() as $value) {
+            $method = strtoupper($method);
             if($value['method'] == $method){
                 $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $value['uri']);
                 $pattern    = "#^$pattern$#";
@@ -99,7 +90,7 @@ class Router
                             return call_user_func_array([new $controller, $action], $params);
                         };
                     }
-                    $next = Middleware::handleMiddleware($middlewares, $next, $type);
+                    $next = Middleware::handleMiddleware($middlewares, $next);
                     return $next($uri);
                 }
             } 
@@ -107,3 +98,7 @@ class Router
         throw new \Exception($uri . " not Existing Rout");
     }
 }
+ 
+
+
+

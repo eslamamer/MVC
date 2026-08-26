@@ -9,7 +9,7 @@
            "Simple" => \App\Http\Middlewares\Simple::class,
         ];
            public static $middlewareApiRout = [
-            "Api" => \App\Http\Middlewares\Api::class,
+            //"Api" => \App\Http\Middlewares\Api::class,
         ];
         
         public static $globapi = [

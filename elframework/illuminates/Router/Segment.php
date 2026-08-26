@@ -5,7 +5,7 @@
    class Segment{
 
         public static function uri(){
-                return str_starts_with($_SERVER['REQUEST_URI'], "/elframe/") ? substr($_SERVER['REQUEST_URI'], strlen("/elframe/")) : $_SERVER['REQUEST_URI'];
+                return str_starts_with($_SERVER['REQUEST_URI'], ROOT) ? substr($_SERVER['REQUEST_URI'], strlen(ROOT)) : $_SERVER['REQUEST_URI'];
         }
 
         public static function get(int $offset){
