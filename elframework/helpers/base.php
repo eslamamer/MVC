@@ -7,8 +7,13 @@ if (!function_exists('base_path')) {
 }
 
 if(!function_exists('uri')){
-    function uri(string $uri){
-        return $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/elframe/".ltrim($uri, '/');
+    /**
+     * @param string $uri
+     * 
+     * @return string
+     */
+    function uri(string $uri):string{
+        return $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].ROOT.ltrim($uri, '/');
     }   
 }
 
@@ -16,6 +21,13 @@ if (!function_exists('route_path')) {
     function route_path(string $file = "")
     {
         return !empty($file) ? config('router.path') . $file : config('router.path');
+    }
+}
+
+if (!function_exists('storage_path')) {
+    function storage_path(string $file = "")
+    {
+        return !empty($file) ? config('storage.path') . $file : config('storage.path');
     }
 }
 

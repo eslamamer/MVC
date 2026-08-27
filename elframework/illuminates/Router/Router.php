@@ -3,6 +3,7 @@
 namespace illuminates\Router;
 
 use Closure;
+use \illuminates\logs\Log;
 use \illuminates\middleware\Middleware;
 
 
@@ -33,19 +34,33 @@ class Router
         ];
     }
 
-    public static function routes()
+    /**
+     * @return array
+     */
+    public static function routes():array
     {
         return self::$routes;
     }
 
-    public static function group(array $attr, Closure $callback){
+    /**
+     * @param array $attr
+     * @param Closure $callback
+     * 
+     * @return void
+     */
+    public static function group(array $attr, Closure $callback):void{
         $previousGroupAttr = static::$groupattr;
         static::$groupattr = array_merge(static::$groupattr, $attr);
         call_user_func($callback, new self);
         static::$groupattr = $previousGroupAttr;
     }
 
-    protected static function applyGroupPrefix(string $route){
+    /**
+     * @param string $route
+     * 
+     * @return string
+     */
+    protected static function applyGroupPrefix(string $route):string{
         if(isset(self::$groupattr['prefix'])){
             $full_route = rtrim(self::$groupattr['prefix'].'/'.ltrim($route, '/'), '/') ?:'/';
             return $full_route;
@@ -54,7 +69,12 @@ class Router
         }
     } 
 
-    protected static function applyMiddleware(array $middleware){
+    /**
+     * @param array $middleware
+     * 
+     * @return array
+     */
+    protected static function applyMiddleware(array $middleware):array{
         if(isset(self::$groupattr['middleware'])){
             $apiMiddleware = self::$groupattr['middleware']??[];
             return array_merge($apiMiddleware, $middleware);
@@ -62,13 +82,14 @@ class Router
         return $middleware;
     } 
 
+    
     /**
      * @param string $uri
-     * @param mixed $method
+     * @param string $method
      * 
-     * @return mixed
+     * @return object
      */
-    public static function dispatch(string $uri, string $method){
+    public static function dispatch(string $uri, string $method):mixed{
         $uri = str_starts_with($uri, ROOT) ? substr($uri, strlen(ROOT)) : $uri; 
         $uri = '/'.ltrim($uri, '/');
         foreach (self::routes() as $value) {
@@ -95,7 +116,8 @@ class Router
                 }
             } 
         }
-        throw new \Exception($uri . " not Existing Rout");
+        throw new Log($uri . " not Existing Rout");
+        //throw new \Exception($uri . " not Existing Rout");
     }
 }
  
