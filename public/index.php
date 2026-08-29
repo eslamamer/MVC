@@ -6,4 +6,5 @@
     define('ROOT_PATH', dirname(__FILE__));
     define('ROOT', '/elframe/');
     require_once __DIR__.'/../vendor/autoload.php';
+       
    (new illuminates\Start)->run();

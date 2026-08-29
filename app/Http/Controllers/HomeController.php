@@ -2,14 +2,16 @@
     namespace App\Http\Controllers;
     class HomeController{
         public function index(){
-            echo 'index action';
+            $title = 'welcome to first view';
+            $contents = 'my data content';
+            return view('index', compact('title' , 'contents' ));
         }
 
         public function about(){
-            echo 'about action';
+            return 'about action';
         }
 
         public function article(string $id){
-            echo 'article action '.$id;
+            return 'article action '.$id;
         }
     }

@@ -81,15 +81,14 @@ class Router
         }
         return $middleware;
     } 
-
     
     /**
      * @param string $uri
      * @param string $method
      * 
-     * @return object
+     * @return string
      */
-    public static function dispatch(string $uri, string $method):mixed{
+    public static function dispatch(string $uri, string $method){
         $uri = str_starts_with($uri, ROOT) ? substr($uri, strlen(ROOT)) : $uri; 
         $uri = '/'.ltrim($uri, '/');
         foreach (self::routes() as $value) {
@@ -116,8 +115,7 @@ class Router
                 }
             } 
         }
-        throw new Log($uri . " not Existing Rout");
-        //throw new \Exception($uri . " not Existing Rout");
+        throw new Log("'$uri' : is not Existing Rout");
     }
 }
  

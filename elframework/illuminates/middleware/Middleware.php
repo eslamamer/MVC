@@ -2,6 +2,7 @@
 
 namespace illuminates\middleware;
 use \App\Core;
+use illuminates\logs\Log;
 
 
 class Middleware
@@ -30,7 +31,7 @@ class Middleware
         }elseif((Core::$middlewareApiRout[$key])){
             return Core::$middlewareApiRout[$key];
         }else{
-            throw new \Exception("there is no class named $key");
+            throw new Log("there is no class named $key");
         }
     }
 }

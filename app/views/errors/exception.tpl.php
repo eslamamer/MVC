@@ -11,10 +11,10 @@
         <div class="row">
             <div class="col-12">
                 <h1>Exception Error</h1>
-                <h3>message: <?= $message ?></h3>
-                <h3>line: <?= $line    ?></h3>
-                <h3>file: <?= $file    ?></h3>
-                <h3>trace: <?= $trace   ?></h3>
+                <h3>Error : <?= $message ?></h3>
+                <h3>line  : <?= $line    ?></h3>
+                <h3>file  : <?= $file    ?></h3>
+                <h3>trace : <?= $trace   ?></h3>
             </div>
         </div>
     </div>

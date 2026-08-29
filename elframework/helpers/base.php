@@ -1,4 +1,13 @@
 <?php
+use illuminates\logs\Log;
+
+if (!function_exists('view')) {
+    function view(string $view, array $data = [])
+    {
+        return \illuminates\views\View::make($view, $data);
+    }
+}
+
 if (!function_exists('base_path')) {
     function base_path($file = null)
     {
@@ -18,20 +27,35 @@ if(!function_exists('uri')){
 }
 
 if (!function_exists('route_path')) {
-    function route_path(string $file = "")
+    /**
+     * @param string $file
+     * 
+     * @return string
+     */
+    function route_path(string $file = ""):string
     {
         return !empty($file) ? config('router.path') . $file : config('router.path');
     }
 }
 
 if (!function_exists('storage_path')) {
-    function storage_path(string $file = "")
+    /**
+     * @param string $file
+     * 
+     * @return string
+     */
+    function storage_path(string $file = ""):string
     {
-        return !empty($file) ? config('storage.path') . $file : config('storage.path');
+        return !empty($file) ? config('storage.path')."/" . $file : config('storage.path');
     }
 }
 
 if (!function_exists('config')) {
+    /**
+     * @param string $str_path
+     * 
+     * @return string
+     */
     function config(string $str_path): string {
         static $cache = [];
         if (isset($str_path)) {
@@ -46,7 +70,7 @@ if (!function_exists('config')) {
                     $cache[$name] = require_once $file;
                     return isset($cache[$name][$path]) ? $cache[$name][$path] : $str_path;
                 } else {
-                    throw new \Exception($name." not exist");
+                    throw new Log($name." not exist");
                 }
             }
         } else {

@@ -1,17 +1,25 @@
 <?php
     namespace illuminates\logs;
+    use Exception;
 
 
-    class Log extends \Exception{
+    class Log extends Exception{
 
-        public function __construct($message, $code = 0, \Exception $previous = null, $logFile = 'logs/logs.php'){
+        protected string $logFile;
+        public function __construct(string $message, $code = 0 , Exception $previous = null , $logFile = 'logs/logs'){
+           
             parent::__construct($message, $code, $previous);
+            
+            $this->logFile = $logFile;
             $this->displayError();
+            $this->logError();
+            
         }
 
         public function logError(){
             $logContent = date('y-m-d  H:i:s')." error: ".$this->getMessage()." in ".$this->getFile()." at line : ".$this->getLine();
-            file_put_contents(storage_path($this->logFile), $logContent, FILE_APPEND);
+            file_put_contents(storage_path($this->logFile), $logContent.PHP_EOL, FILE_APPEND);
+            var_dump(storage_path($this->logFile));
         }
 
         public function displayError(){
@@ -19,6 +27,6 @@
             $line    = $this->getLine();
             $file    = $this->getFile();
             $trace   = $this->getTraceAsString();
-            include base_path('app/Views/errors/exception.tpl.php');  
+            include base_path('app/views/errors/exception.tpl.php');  
         }
     }
