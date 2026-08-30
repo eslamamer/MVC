@@ -86,18 +86,18 @@ class Router
      * @param string $uri
      * @param string $method
      * 
-     * @return string
+     * @return mixed
      */
-    public static function dispatch(string $uri, string $method){
+    public static function dispatch(string $uri, string $method):mixed{
         $uri = str_starts_with($uri, ROOT) ? substr($uri, strlen(ROOT)) : $uri; 
         $uri = '/'.ltrim($uri, '/');
         foreach (self::routes() as $value) {
             $method = strtoupper($method);
             if($value['method'] == $method){
-                $pattern    = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $value['uri']);
-                $pattern    = "#^$pattern$#";
-                $controller = $value['controller'];
-                $action     = $value['action'];
+                $pattern     = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $value['uri']);
+                $pattern     = "#^$pattern$#";
+                $controller  = $value['controller'];
+                $action      = $value['action'];
                 $middlewares = $value['middleware'];
                 if (preg_match($pattern, $uri, $matches)) { 
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);

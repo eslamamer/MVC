@@ -10,7 +10,7 @@
          * 
          * @return void
          */
-        public static function make(string $view, array $data = []){
+        public static function make(string $view, array $data = []):void{
             $view = str_replace('.', '/', $view);
             $path = config('views.path');
             extract($data);
