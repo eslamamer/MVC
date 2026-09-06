@@ -3,6 +3,7 @@
 namespace illuminates;
 use \illuminates\Router\Rout;
 use \illuminates\Router\Segment;
+use \illuminates\views\Settings;
 
 class Start
 {
@@ -10,6 +11,7 @@ class Start
     public function run()
     {
         $this->router = new Rout;
+        Settings::setTimeZone();
         $reqType = Segment::get(0);
         if($reqType == "api"){
             $this->apiٌRout();
@@ -23,6 +25,7 @@ class Start
         foreach(\App\Core::$globweb as $web){
             new $web;
         }
+        Settings::setLocale(config('app.locale'));
         include route_path('/web.php');
         }
     public function apiٌRout(){

@@ -12,9 +12,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <?php /**@var string $title @var string $contents */ ?>
-        <h1><?= $title ?></h1>
-        <h3><?= $contents ?></h3>
+                <h1>welcome to first view</h1>
+        <h3>my data content</h3>
 
       </div>
     </div>

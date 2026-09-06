@@ -40,13 +40,13 @@ if (!function_exists('route_path')) {
 
 if (!function_exists('storage_path')) {
     /**
-     * @param string $file
+     * @param string $path
      * 
      * @return string
      */
-    function storage_path(string $file = ""):string
+    function storage_path(string $path = ""):string
     {
-        return !empty($file) ? config('storage.path')."/" . $file : config('storage.path');
+        return !empty($path) ? config('storage.path')."/" . $path : config('storage.path');
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
     return[
-        "encryption_mode"   => "AES-128-CBC",
-        "encryption_key"    => "ANY_KEY",
+        "encryption_mode"   => config('app.cipher'),
+        "encryption_key"    => config('app.key'),
         "path"              => base_path("storage/sessions"),
         "expiration_timeout"=> 421230
     ];

@@ -3,10 +3,11 @@
 use \App\Http\Middlewares\Simple;
 use \illuminates\Router\Rout;
 use \App\Http\Controllers\HomeController;
+use \illuminates\sessions\Session;
 
 Rout::group(['prefix' => 'site'], function(){
-    Rout::get( "/", HomeController::class, 'index', ["Simple, admin"] );
-    // Rout::get( "/", fn()=>'index of closure', middleware:[Simple::class]);
+    //Rout::get( "/", HomeController::class, 'index', ["Simple, admin"] );
+    Rout::get( "/", fn()=>Session::get('locale')); //middleware:[Simple::class]);
     Rout::get("about", HomeController::class, 'about', [Simple::class]);
     //Rout::get("about", function(){return 'about from closure';}, middleware:["Simple"]);
     // Rout::get("article/{id}", HomeController::class, 'article', [Simple::class]);
