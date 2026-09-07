@@ -19,7 +19,7 @@ class Start
             $reqType = "web";
             $this->webrout();
         }
-        echo $this->router::dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'], $reqType);
+        echo $this->router::dispatch(parse_url($_SERVER['REQUEST_URI'])['path'], $_SERVER['REQUEST_METHOD'], $reqType);
     }
     public function webrout(){
         foreach(\App\Core::$globweb as $web){

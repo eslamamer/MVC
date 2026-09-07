@@ -11,7 +11,11 @@
         public static function get(int $offset){
                 $uri      = static::uri();
                 $segments = explode("/",$uri);
-                return isset($segments[$offset]) ? $segments[$offset] : "";
+                if(isset($segments[$offset])){
+                        return parse_url($segments[$offset])['path'];
+                }else{
+                        return "";
+                }
         }
 
         public static function all(){
