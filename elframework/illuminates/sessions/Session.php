@@ -6,8 +6,10 @@ use illuminates\hashes\Hash;
     class Session{
 
         public function  __construct(){
-            session_save_path(config('session.path'));
-            ini_set('session.gc_propability', 1);
+            $handler = new \SessionHandler(config('session.path'), config('session.prefix'));
+            session_set_save_handler($handler, true);
+            // session_save_path(config('session.path'));
+            //ini_set('session.gc_propability', 1);
             session_start([
                 "cookie_lifetime" => config('session.expiration_timeout')
             ]);

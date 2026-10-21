@@ -14,4 +14,8 @@
         public function article(string $id){
             return 'article action '.$id;
         }
+
+         public function api_any(){
+            return 'any api action';
+        }
     }
