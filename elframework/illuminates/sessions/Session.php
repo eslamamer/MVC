@@ -1,7 +1,7 @@
 <?php
     namespace illuminates\sessions;
 
-use illuminates\hashes\Hash;
+    use illuminates\hashes\Hash;
 
     class Session{
 
@@ -9,7 +9,7 @@ use illuminates\hashes\Hash;
             $handler = new \SessionHandler(config('session.path'), config('session.prefix'));
             session_set_save_handler($handler, true);
             // session_save_path(config('session.path'));
-            //ini_set('session.gc_propability', 1);
+            // ini_set('session.gc_propability', 1);
             session_start([
                 "cookie_lifetime" => config('session.expiration_timeout')
             ]);

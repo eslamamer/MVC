@@ -46,7 +46,7 @@
          * @return bool
          */
         public function destroy(string $id): bool{
-            $file = $this->savePath.'/'.$this->prefix.'_'.$id;
+            $file = $this->savePath.DIRECTORY_SEPARATOR.$this->prefix.'_'.$id;
             if(file_exists($file)){
                 unlink($file);
             }
