@@ -6,10 +6,14 @@
     class Session{
 
         public function  __construct(){
-            $handler = new \SessionHandler(config('session.path'), config('session.prefix'));
+                        session_name(config('session.prefix'));
+            $handler = new SessionHandler(config('session.path'), config('session.prefix'));
             session_set_save_handler($handler, true);
-            // session_save_path(config('session.path'));
+            session_name(config('session.prefix'));
+            //var_dump(get_class($handler));
+            session_save_path(config('session.path'));
             // ini_set('session.gc_propability', 1);
+            $handler->gc(config('session.expiration_timeout'));
             session_start([
                 "cookie_lifetime" => config('session.expiration_timeout')
             ]);
